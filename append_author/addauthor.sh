@@ -1,6 +1,9 @@
 #!/bin/bash
 
-for i in `find . -name '*.c'` # or whatever other pattern...
+for i in `find . -name '*.c' -o -name '*.cpp' -o -name '*.h'`
 do
-    cat author.info $i >$i.new && mv $i.new $i
+  if ! grep -q "Author:" $i
+  then
+    cat author.info $i > $i.new && mv $i.new $i
+  fi
 done
